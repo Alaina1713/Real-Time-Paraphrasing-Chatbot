@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Paraphrasing Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .messenger-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            background: #f4f4f9;
+            overflow-y: auto; /* Scrolls only when content exceeds the height */
+            max-height: 500px; /* Limits chatbox height */
+            border-bottom: 2px solid #ddd;
+        }
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .user-message {
+            align-self: flex-end;
+            background: #007BFF;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 20px 20px 0 20px;
+            max-width: 80%;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background: #f1f0f0;
+            color: #333;
+            padding: 15px 20px;
+            border-radius: 20px 20px 20px 0;
+            max-width: 80%;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background: #fff;
+            border-top: 1px solid #ddd;
+        }
+        .form-container input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .form-container button {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="messenger-container">
+        <div class="header">PDF Paraphrasing Bot</div>
+        <div class="chat-box">
+            {% if original_text and paraphrased_text %}
+                <div class="chat-message bot-message">
+                    <strong>Original Text:</strong>
+                    <div style="background: #e9ecef; padding: 10px; border-radius: 10px;">
+                        {{ original_text }}
+                    </div>
+                </div>
+                <div class="chat-message bot-message">
+                    <strong>Paraphrased Text:</strong>
+                    <div style="background: #e9ecef; padding: 10px; border-radius: 10px;">
+                        {{ paraphrased_text }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-container">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="file">Upload PDF:</label>
+                <input type="file" name="file" id="file" accept=".pdf" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

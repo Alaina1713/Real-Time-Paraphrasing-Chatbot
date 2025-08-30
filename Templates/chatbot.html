@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemmy - Your Friendly Empathetic Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f8b195, #f67280, #c06c84);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 36px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        .chat-box {
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            height: 50vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.4;
+            position: relative;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #6c5ce7;
+            color: white;
+            max-width: 70%;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #fd79a8;
+            color: white;
+            max-width: 70%;
+        }
+        .timestamp {
+            font-size: 12px;
+            color: #aaa;
+            position: absolute;
+            bottom: -20px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid #ddd;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 15px 20px;
+            background-color: #00cec9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0984e3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lemmy - Your Friendly Empathetic Chatbot</h1>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Spill the tea, bestie...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function getCurrentTimestamp() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input').value;
+            if (input.trim() === '') return;
+
+            const chatBox = document.getElementById('chat-box');
+
+            // User Message
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('message', 'user-message');
+            userMessage.textContent = input;
+
+            const userTimestamp = document.createElement('div');
+            userTimestamp.classList.add('timestamp');
+            userTimestamp.textContent = getCurrentTimestamp();
+            userMessage.appendChild(userTimestamp);
+
+            chatBox.appendChild(userMessage);
+
+            // Clear input field
+            document.getElementById('user-input').value = '';
+
+            // Lemmy's response
+            let botReply = '';
+
+            // Empathetic and Math logic
+            if (input.toLowerCase().includes('hello') || input.toLowerCase().includes('hi')) {
+                botReply = 'Heyy bestie! 😎 What’s on your mind today? Spill the tea, I’m all ears. 💬';
+            } else if (input.toLowerCase().includes('calculate')) {
+                try {
+                    // Extract mathematical expression
+                    const expression = input.replace(/calculate/gi, '').trim();
+
+                    // Handle trigonometric functions
+                    const sanitizedExpression = expression.replace(/(sin|cos|tan|pi|sqrt|pow)/gi, (match) => {
+                        return {
+                            'sin': 'Math.sin',
+                            'cos': 'Math.cos',
+                            'tan': 'Math.tan',
+                            'pi': 'Math.PI',
+                            'sqrt': 'Math.sqrt',
+                            'pow': 'Math.pow'
+                        }[match.toLowerCase()];
+                    });
+
+                    const result = eval(sanitizedExpression);
+
+                    if (!isNaN(result)) {
+                        botReply = `✨ Here you go, bestie: ${result}`;
+                    } else {
+                        botReply = 'Hmm, I couldn’t figure that out. Try again? 🧐';
+                    }
+                } catch (error) {
+                    botReply = 'Oops! That calculation’s a no-go. Try something simpler? 🤔';
+                }
+            } else if (input.toLowerCase().includes('thank you')) {
+                botReply = 'No biggie! I’m here whenever you need me. ✌️';
+            } else if (input.toLowerCase().includes('feel') || input.toLowerCase().includes('sad')) {
+                botReply = 'Aww 🫂 Sending you a virtual hug! It’s okay to feel down sometimes. Just take it one step at a time. You’ve got this, bestie! 💖';
+            } else if (input.toLowerCase().includes('happy') || input.toLowerCase().includes('good')) {
+                botReply = 'Yasss! Love to hear that energy! Keep slaying, superstar! 🌟✨';
+            } else if (input.toLowerCase().includes('breakup')) {
+                botReply = 'Breakups are tough, no cap. But guess what? You’re stronger than this moment. Go get some ice cream, cry it out, and bounce back like the boss you are. 💪💔';
+            } else if (input.toLowerCase().includes('grades')) {
+                botReply = 'Okay, so grades are not the vibe right now. But listen, grades don’t define your worth. You’re a whole vibe on your own. 🔥 Just keep pushing forward!';
+            } else {
+                botReply = 'Not sure I caught that, bestie, but I’m here for you! Need advice, a laugh, or just someone to listen? I gotchu. 🫶';
+            }
+
+            // Bot Message
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('message', 'bot-message');
+            botMessage.textContent = botReply;
+
+            const botTimestamp = document.createElement('div');
+            botTimestamp.classList.add('timestamp');
+            botTimestamp.textContent = getCurrentTimestamp();
+            botMessage.appendChild(botTimestamp);
+
+            chatBox.appendChild(botMessage);
+
+            // Scroll to the latest message
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>

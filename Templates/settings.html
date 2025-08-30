@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Lemmy Technologies</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        main {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        main h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        form select:focus, form button:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        form button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        form button:hover {
+            background: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+    </header>
+    <main>
+        <h2>Customize Your Preferences</h2>
+        <form action="/settings" method="post">
+            <!-- Notification Setting -->
+            <label for="notification">Enable Notifications:</label>
+            <select id="notification" name="notification" required>
+                <option value="yes" {% if notification == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if notification == 'no' %}selected{% endif %}>No</option>
+            </select>
+
+            <!-- Theme Setting -->
+            <label for="theme">Choose Theme:</label>
+            <select id="theme" name="theme" required>
+                <option value="light" {% if theme == 'light' %}selected{% endif %}>Light</option>
+                <option value="dark" {% if theme == 'dark' %}selected{% endif %}>Dark</option>
+            </select>
+
+            <!-- Submit Button -->
+            <button type="submit">Save Settings</button>
+        </form>
+    </main>
+    <footer>
+        &copy; 2024 Lemmy Technologies. All rights reserved.
+    </footer>
+</body>
+</html>

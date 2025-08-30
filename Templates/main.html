@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraphrased Content - Chat Interface</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #ecf0f1;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .sidebar button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Box Container for Original and Paraphrased Text */
+        .text-box-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Each Text Box */
+        .text-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 48%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .chat-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Upload Form */
+        .upload-form {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .upload-form input[type="file"] {
+            margin-top: 10px;
+        }
+
+        .upload-form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-form button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .chat-container {
+                padding: 10px;
+            }
+
+            .text-box-container {
+                flex-direction: column;
+            }
+
+            .text-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <button onclick="window.location.href='/history'">View History</button>
+        <button onclick="window.location.href='/help'">Help</button>
+        <button onclick="window.location.href='/chatbot'">Lemmy Chatbot</button>
+        <button onclick="window.location.href='/settings'">Settings</button>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <!-- PDF Upload Form -->
+        <form class="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <h3>Upload a PDF to Paraphrase</h3>
+            <input type="file" name="file" accept="application/pdf" required>
+            <button type="submit">Upload & Paraphrase</button>
+        </form>
+
+        <!-- Original and Paraphrased Text -->
+        <div class="text-box-container">
+            <!-- Original Text Box -->
+            <div class="text-box">
+                <div class="chat-header">Original Text</div>
+                <p>{{ original_text if original_text else "" }}</p> <!-- Empty initially -->
+            </div>
+
+            <!-- Paraphrased Text Box (Easy) -->
+            <div class="text-box">
+                <div class="chat-header">Easy Paraphrased Content</div>
+                <p>{{ easy_paraphrased_text if easy_paraphrased_text else "" }}</p> <!-- Empty initially -->
+            </div>
+
+            <!-- Paraphrased Text Box (Medium) -->
+            <div class="text-box">
+                <div class="chat-header">Medium Paraphrased Content</div>
+                <p>{{ medium_paraphrased_text if medium_paraphrased_text else "" }}</p> <!-- Empty initially -->
+            </div>
+
+            <!-- Paraphrased Text Box (Hard) -->
+            <div class="text-box">
+                <div class="chat-header">Hard Paraphrased Content</div>
+                <p>{{ hard_paraphrased_text if hard_paraphrased_text else "" }}</p> <!-- Empty initially -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
